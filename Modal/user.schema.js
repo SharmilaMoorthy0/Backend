@@ -9,7 +9,7 @@ const userschema= mongoose.Schema({
      otp:{type:Number},
      otpTimeStamp:{type:Number},
      isOtpverified:{type:Boolean,default:false},
-     Address:{type:String,requried:true}
+    
      
 },
 {

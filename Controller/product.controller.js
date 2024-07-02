@@ -69,26 +69,14 @@ const DeleteProducts = async (req, res) => {
 }
 const ProductSearch=async(req,res)=>{
     try {
-           const{search}=req.body
-           let query=[]
-     
-           if(search!==""){
-              query.push({
-                 $match:{
-                    $or:[
-                       { productName:{$regex:search+'.*',$options:'si'} },
-                    ],
-                 }
-              })
-           }
-           
-        const ProductData=await Plants.aggregate(query)
-           if(!ProductData){
-              return res.json({ status: 0, message: "Data not found" })
-           }
-           res.json({ status: 1,response:ProductData })
-            
-           
+        const { query } = req.body;
+        const results = await Plants.find({
+            $or: [
+              { productName: { $regex: query, $options: 'i' } }, // Case-insensitive search on productName
+            //   { description: { $regex: query, $options: 'i' } } // Case-insensitive search on description
+            ]
+          });
+          res.json({ status: 1,response: results });
         } catch (error) {
            console.log("product.controller.js/ProductSearch-->error", error)
         }

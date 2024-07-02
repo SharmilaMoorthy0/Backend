@@ -10,7 +10,7 @@ const router=express.Router()
 router.post('/new/order',auth,newOrder)
 router.post('/all/order',auth,AllOrders)
 router.post('/admin/all/order',authForAdmin,AdminAllOrders)
-router.post('/remove/order',authForAdmin,DeleteOrder)
+router.post('/remove/order',DeleteOrder)
 router.post('/edit/order/address/:id',auth,editOrderAddress)
 router.post('/edit/order/admin/:id',authForAdmin,editOrderAdmin)
 

@@ -6,7 +6,7 @@ const Tosend = require('../mail/Sendmail')
 
 const signUp = async (req, res) => {
    try {
-      const { username, Email, password, mobile, Address } = req.body
+      const { username, Email, password, mobile } = req.body
       const checkEmail=await User.findOne({Email:Email})
       if(checkEmail){
          return res.json({status:0,message:"email already taken"})
@@ -17,7 +17,7 @@ const signUp = async (req, res) => {
          Email,
          password: hashpassword,
          mobile,
-         Address
+        
       }
       const saveUser = await User.create(data)
       if (!saveUser) {

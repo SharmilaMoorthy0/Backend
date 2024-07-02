@@ -4,7 +4,7 @@ const Cart = require("../Modal/cart.schema")
 
 const newOrder = async (req, res) => {
     try {
-        const { productName, Description, Price, Rating, Offerprice, client, Image,address, _id, buynow } = req.body
+        const { productName, Description, Price, Rating, Offerprice, client, Image,date,address,Status, _id, buynow } = req.body
 
 
         let data = {
@@ -14,7 +14,9 @@ const newOrder = async (req, res) => {
             Rating,
             Offerprice,
             client,
+            Status,
             Image,
+            date,
             address,
         }
         const saveorder = await Order.create(data)
@@ -67,10 +69,11 @@ const DeleteOrder = async (req, res) => {
 const editOrderAddress=async(req,res)=>{
     try {
         const { id} = req.params
+       
       if (!id) {
          return res.json({ status: 0, message: " Order id requried" })
       }
-        const update=await Order.findByIdAndUpdate(id,req.body)
+        const update=await Order.findByIdAndUpdate(id,req.body,{ new: true })
         if(!update){
             return res.json({status:0 ,message:" Address not updated"})
         }
@@ -82,7 +85,7 @@ const editOrderAddress=async(req,res)=>{
 const editOrderAdmin=async(req,res)=>{
     try {
         const { id} = req.params
-        const { address} = req.body
+       
       if (!id) {
          return res.json({ status: 0, message: " Order id requried" })
       }
